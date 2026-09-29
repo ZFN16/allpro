@@ -11,16 +11,51 @@ body{
   align-items:center;
   justify-content:center;
 }
+.cache-screen{
+  width:min(92vw,760px);
+  text-align:center;
+  padding:28px;
+}
 #progress{
   font-size:clamp(20px,3vw,28px);
   font-weight:600;
-  letter-spacing:.1px;
+  line-height:1.4;
 }
 </style>
 <meta charset="utf-8">
 </head>
 <body>
-<div id="progress" aria-live="polite">Cache sedang dibuat...</div>
+<div class="cache-screen" aria-live="polite">
+  <div id="progress">Cache sedang dibuat...</div>
+</div>
+
+<script>
+(function () {
+  var progress = document.getElementById("progress");
+  var appCache = window.applicationCache;
+
+  function goBackToIndex() {
+    window.location.replace("index.html");
+  }
+
+  if (!appCache) {
+    progress.textContent = "Cache sedang dibuat...";
+    setTimeout(goBackToIndex, 1000);
+    return;
+  }
+
+  appCache.addEventListener("cached", goBackToIndex, false);
+  appCache.addEventListener("updateready", goBackToIndex, false);
+
+  appCache.addEventListener("error", function () {
+    progress.textContent = "Cache gagal dibuat. Silakan muat ulang halaman.";
+  }, false);
+
+  appCache.addEventListener("obsolete", function () {
+    progress.textContent = "Cache tidak tersedia. Silakan muat ulang halaman.";
+  }, false);
+})();
+</script>
 </body>
 
 </html>
