@@ -1,0 +1,211 @@
+<html manifest="Cache.manifest">
+<head>
+<meta charset="utf-8">
+<title>Jailbreak</title>
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#090b0e;
+  color:#f5f7fa;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.host{
+  width:min(92vw,780px);
+  text-align:center;
+  padding:28px 24px;
+}
+.warning{
+  margin:0 auto 18px;
+  max-width:720px;
+  padding:20px 24px;
+  border:1px solid #8f2929;
+  background:linear-gradient(180deg,#250b0b 0%,#19090a 100%);
+  border-radius:12px;
+  box-shadow:0 10px 35px rgba(0,0,0,.28);
+  line-height:1.45;
+}
+.warning strong{
+  display:block;
+  color:#ff6b6b;
+  font-size:clamp(21px,3vw,27px);
+  line-height:1.2;
+  margin-bottom:9px;
+}
+.warning span{
+  display:block;
+  color:#f3f4f6;
+  font-size:clamp(14px,1.9vw,17px);
+  font-weight:700;
+}
+.rules{
+  margin:0 auto 18px;
+  max-width:720px;
+  padding:15px 21px;
+  border:1px solid #252b32;
+  background:#111419;
+  border-radius:11px;
+  text-align:left;
+}
+.rule{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin:7px 0;
+  color:#dfe3e8;
+  font-size:clamp(14px,1.8vw,16px);
+  line-height:1.42;
+}
+.rule .dot{
+  flex:0 0 auto;
+  color:#ff6b6b;
+  font-weight:900;
+}
+.rule b{color:#ff6b6b}
+.firmware{
+  margin:0 auto 13px;
+  color:#f7f8fa;
+  font-size:clamp(18px,2.6vw,23px);
+  line-height:1.3;
+  font-weight:700;
+}
+.status{
+  min-height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#e5e7eb;
+  font-size:clamp(18px,2.8vw,24px);
+  font-weight:600;
+  text-shadow:0 2px 12px rgba(0,0,0,.75);
+}
+.status:empty{display:none}
+.hint{
+  margin-top:8px;
+  color:#8f98a3;
+  font-size:14px;
+  line-height:1.4;
+}
+</style>
+<script>
+      if (window.applicationCache.status === 0) {window.location.replace("cache.html");}
+</script>
+</head>
+<body>
+<main class="host" aria-live="polite">
+  <section class="warning" role="note">
+    <strong>Jangan hubungkan ke internet</strong>
+    <span>Jika terhubung dan firmware terupdate maka akan didenda<br>Rp. 1.500.000 sesuai dengan syarat dan ketentuan yang berlaku</span>
+  </section>
+
+  <div class="firmware">Hanya untuk PS4 dengan firmware 5.05 hingga 13.52</div>
+
+  <div id="progress" class="status">Mempersiapkan...</div>
+
+  <section class="rules" aria-label="Petunjuk penting">
+    <div class="rule"><span class="dot">•</span><span><b>Jangan menyalakan Network PS4</b> selama proses berlangsung.</span></div>
+    <div class="rule"><span class="dot">•</span><span><b>Jangan melakukan Update Sistem PS4.</b></span></div>
+    <div class="rule"><span class="dot">•</span><span><b>Jangan matikan PS4</b> selama proses berlangsung.</span></div>
+    <div class="rule"><span class="dot">•</span><span><b>Jangan meninggalkan halaman ini</b> selama proses berlangsung.</span></div>
+  </section>
+
+  <div class="hint">Jika proses gagal, restart PS4 lalu buka halaman ini kembali.</div>
+  <div class="hint">Jika proses berhasil, silakan keluar dari halaman ini.</div>
+</main>
+</main>
+<script>
+var outputConsole = document.getElementById("progress");
+window.log = function (msg, color) {
+      if (color === undefined) color = "#cccccc";
+      outputConsole.innerHTML = '<span style="color:' + color + '">' + msg + '</span><br>';
+};
+window.logger = function (msg, color) {
+      if (color === undefined) color = "#cccccc";
+      outputConsole.innerHTML = '<span style="color:' + color + '">' + msg + '</span><br>';
+};
+window.addEventListener('error', function (event) {
+      var reason = event.error;
+      var msg = 'Unhandled error\n';
+      if (reason) {
+        msg += reason + '\n';
+        if (reason.sourceURL)
+          msg += reason.sourceURL;
+        if (reason.line)
+          msg += ':' + reason.line;
+        if (reason.column)
+          msg += ':' + reason.column;
+        if (reason.stack)
+          msg += '\n' + reason.stack;
+      } else {
+        msg += 'No error object';
+      }
+      alert(msg);
+      return true;
+});
+var uaFull = navigator.userAgent;
+var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
+var isPS4 = match !== null;
+var fwVersion = isPS4 ? match[1] : "Unknown";
+var fwNum = parseFloat(fwVersion);
+
+function onScriptError() {
+    progress.innerHTML = "Konten tidak ditemukan. Hapus data browser lalu pasang ulang cache...";
+}
+
+if (!isPS4) {
+    document.addEventListener("DOMContentLoaded", () => {
+
+    });
+} else {
+        if (fwNum == 5.05 || fwNum == 5.07) {
+            var script = document.createElement('script');
+            script.src = "exploit5.js";
+            script.onerror = onScriptError;
+            document.head.appendChild(script);
+        }
+        else if (fwNum >= 7.00 && fwNum <= 9.60) {
+            var script = document.createElement('script');
+            script.src = "exploit7_9.js";
+            script.onerror = onScriptError;
+            document.head.appendChild(script);
+             setTimeout(function() { window.log("Memulai proses jailbreak...");try {
+                 doJailBreak();
+                } catch (error) {
+                 window.log("Proses jailbreak gagal. Silakan restart PS4 dan coba lagi.", "red");
+                 }; }, 500);
+             
+        }
+        else if (fwNum >= 10.00 && fwNum <= 11.02) {
+            var script = document.createElement('script');script.src = "exploit10.js";script.onerror = onScriptError;
+            script.onload = function () {
+                setTimeout(function () {
+                    doJb();
+                }, 1000);
+            };
+            document.head.appendChild(script);
+        }
+        else if (fwNum >= 11.50 && fwNum <= 12.02) {
+           var script = document.createElement('script');
+           script.src = "1150_1202.js";
+           script.onerror = onScriptError;
+           document.head.appendChild(script);
+       }
+       else if (fwNum >= 12.50 && fwNum <= 13.00) {
+           var script = document.createElement('script');
+           script.src = "1250_13.js";
+           script.onerror = onScriptError;
+           document.head.appendChild(script);
+       }
+       else if (fwNum >= 13.02 && fwNum <= 13.52) {
+           var script = document.createElement('script');
+           script.src = "1302_1352.js";
+           script.onerror = onScriptError;
+           document.head.appendChild(script);
+       }
+    }
+</script>
+</html>
