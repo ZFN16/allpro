@@ -1,98 +1,44 @@
 <html manifest="Cache.manifest">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Jailbreak</title>
 <style>
-:root{color-scheme:dark}
+:root{color-scheme:dark;--bg:#07090c;--panel:#0f1318;--panel2:#12171e;--line:#252d36;--text:#f2f4f7;--muted:#98a2ae;--red:#ff4d57;--red2:#8d2028;--green:#43d17b;--amber:#ffbd55}
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden}
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#090b0e;
-  color:#f5f7fa;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.host{
-  width:min(92vw,780px);
-  text-align:center;
-  padding:28px 24px;
-}
-.warning{
-  margin:0 auto 18px;
-  max-width:720px;
-  padding:20px 24px;
-  border:1px solid #8f2929;
-  background:linear-gradient(180deg,#250b0b 0%,#19090a 100%);
-  border-radius:12px;
-  box-shadow:0 10px 35px rgba(0,0,0,.28);
-  line-height:1.45;
-}
-.warning strong{
-  display:block;
-  color:#ff6b6b;
-  font-size:clamp(21px,3vw,27px);
-  line-height:1.2;
-  margin-bottom:9px;
-}
-.warning span{
-  display:block;
-  color:#f3f4f6;
-  font-size:clamp(14px,1.9vw,17px);
-  font-weight:700;
-}
-.rules{
-  margin:0 auto 18px;
-  max-width:720px;
-  padding:15px 21px;
-  border:1px solid #252b32;
-  background:#111419;
-  border-radius:11px;
-  text-align:left;
-}
-.rule{
-  display:flex;
-  gap:10px;
-  align-items:flex-start;
-  margin:7px 0;
-  color:#dfe3e8;
-  font-size:clamp(14px,1.8vw,16px);
-  line-height:1.42;
-}
-.rule .dot{
-  flex:0 0 auto;
-  color:#ff6b6b;
-  font-weight:900;
-}
-.rule b{color:#ff6b6b}
-.firmware{
-  margin:0 auto 13px;
-  color:#f7f8fa;
-  font-size:clamp(18px,2.6vw,23px);
-  line-height:1.3;
-  font-weight:700;
-}
-.status{
-  min-height:46px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#e5e7eb;
-  font-size:clamp(18px,2.8vw,24px);
-  font-weight:600;
-  text-shadow:0 2px 12px rgba(0,0,0,.75);
-}
-.status:empty{display:none}
-.hint{
-  margin-top:8px;
-  color:#8f98a3;
-  font-size:14px;
-  line-height:1.4;
-}
+body{font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;background:radial-gradient(circle at 50% -20%,#1a2029 0,#0b0e13 38%,#07090c 72%);color:var(--text);display:flex;align-items:center;justify-content:center}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.025),transparent 30%,transparent 70%,rgba(255,255,255,.018))}
+.host{width:min(94vw,820px);padding:28px 22px 24px;text-align:center}
+.warning{position:relative;margin:0 auto 20px;max-width:760px;padding:22px 26px 21px;border:1px solid rgba(255,77,87,.42);border-radius:16px;background:linear-gradient(145deg,rgba(55,12,15,.96),rgba(25,9,11,.96));box-shadow:0 18px 55px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.035);overflow:hidden}
+.warning:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red);box-shadow:0 0 18px rgba(255,77,87,.45)}
+.warning strong{display:block;color:#ff7078;font-size:clamp(21px,3vw,28px);line-height:1.15;margin-bottom:9px;font-weight:800;letter-spacing:.1px}
+.warning span{display:block;color:#e9edf1;font-size:clamp(14px,1.9vw,17px);line-height:1.5;font-weight:650}
+.firmware{margin:0 auto 15px;color:#eef1f4;font-size:clamp(17px,2.5vw,22px);line-height:1.3;font-weight:750}
+.process{position:relative;margin:0 auto 18px;max-width:760px;padding:21px 22px 19px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,rgba(18,23,30,.98),rgba(12,16,21,.98));box-shadow:0 16px 42px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.025)}
+.process-label{font-size:11px;text-transform:uppercase;letter-spacing:1.8px;color:#74808d;font-weight:800;margin-bottom:11px}
+.status{min-height:34px;display:flex;align-items:center;justify-content:center;gap:11px;color:#eef1f4;font-size:clamp(18px,2.7vw,23px);font-weight:700;line-height:1.3;transition:color .2s ease}
+.status .dot{width:9px;height:9px;border-radius:50%;background:#aab3bd;box-shadow:0 0 0 4px rgba(170,179,189,.08);flex:0 0 auto}
+.status.running .dot{background:#d8dde2;animation:pulse 1.15s ease-in-out infinite}
+.status.success{color:#72e69d}.status.success .dot{background:var(--green);box-shadow:0 0 0 4px rgba(67,209,123,.1)}
+.status.fail{color:#ff737b}.status.fail .dot{background:var(--red);box-shadow:0 0 0 4px rgba(255,77,87,.1)}
+.status.warn{color:#ffd07a}.status.warn .dot{background:var(--amber);box-shadow:0 0 0 4px rgba(255,189,85,.1)}
+.process-line{height:2px;margin:15px auto 0;max-width:430px;background:#1f2630;border-radius:9px;overflow:hidden}
+.process-line span{display:block;width:28%;height:100%;background:linear-gradient(90deg,transparent,#c7cdd3,transparent);animation:scan 1.5s linear infinite}
+.process.done .process-line span{width:100%;animation:none;background:var(--green)}
+.process.failed .process-line span{width:100%;animation:none;background:var(--red)}
+.rules{margin:0 auto 16px;max-width:760px;padding:17px 22px;border:1px solid var(--line);background:rgba(15,19,24,.92);border-radius:15px;text-align:left;box-shadow:0 12px 32px rgba(0,0,0,.2)}
+.rules-title{text-align:center;color:#9da8b4;font-size:11px;text-transform:uppercase;letter-spacing:1.6px;font-weight:800;margin-bottom:10px}
+.rule{display:flex;gap:11px;align-items:flex-start;margin:8px 0;color:#d9dee4;font-size:clamp(13px,1.75vw,15px);line-height:1.42}
+.rule .dot{flex:0 0 auto;color:#ff6971;font-weight:900}.rule b{color:#ff6971}
+.hint{margin-top:6px;color:#91a6bd;font-size:13px;line-height:1.45}
+#progress{display:none!important;position:absolute!important;width:0!important;height:0!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
+@keyframes pulse{0%,100%{opacity:.45;transform:scale(.82)}50%{opacity:1;transform:scale(1)}}
+@keyframes scan{from{transform:translateX(-380%)}to{transform:translateX(500%)}}
+@media(max-width:600px){.host{padding:18px 13px}.warning{padding:19px 18px}.process{padding:18px 15px}.rules{padding:15px 16px}.rule{gap:8px}}
 </style>
 <script>
-      if (window.applicationCache.status === 0) {window.location.replace("cache.html");}
+if (window.applicationCache.status === 0) { window.location.replace("cache.html"); }
 </script>
 </head>
 <body>
@@ -104,9 +50,14 @@ body{
 
   <div class="firmware">Hanya untuk PS4 dengan firmware 5.05 hingga 13.52</div>
 
-  <div id="progress" class="status">Mempersiapkan...</div>
+  <section id="process" class="process" aria-label="Status proses">
+    <div class="process-label">Status Proses</div>
+    <div id="status" class="status running"><span class="dot"></span><span id="statusText">Mempersiapkan...</span></div>
+    <div class="process-line"><span></span></div>
+  </section>
 
   <section class="rules" aria-label="Petunjuk penting">
+    <div class="rules-title">Perhatian</div>
     <div class="rule"><span class="dot">•</span><span><b>Jangan menyalakan Network PS4</b> selama proses berlangsung.</span></div>
     <div class="rule"><span class="dot">•</span><span><b>Jangan melakukan Update Sistem PS4.</b></span></div>
     <div class="rule"><span class="dot">•</span><span><b>Jangan matikan PS4</b> selama proses berlangsung.</span></div>
@@ -115,97 +66,107 @@ body{
 
   <div class="hint">Jika proses gagal, restart PS4 lalu buka halaman ini kembali.</div>
   <div class="hint">Jika proses berhasil, silakan keluar dari halaman ini.</div>
-</main>
+
+  <!-- Legacy exploit modules expect #progress. It is intentionally hidden so internal logs never reach the user-facing UI. -->
+  <div id="progress" aria-hidden="true"></div>
 </main>
 <script>
-var outputConsole = document.getElementById("progress");
-window.log = function (msg, color) {
-      if (color === undefined) color = "#cccccc";
-      outputConsole.innerHTML = '<span style="color:' + color + '">' + msg + '</span><br>';
-};
-window.logger = function (msg, color) {
-      if (color === undefined) color = "#cccccc";
-      outputConsole.innerHTML = '<span style="color:' + color + '">' + msg + '</span><br>';
-};
-window.addEventListener('error', function (event) {
-      var reason = event.error;
-      var msg = 'Unhandled error\n';
-      if (reason) {
-        msg += reason + '\n';
-        if (reason.sourceURL)
-          msg += reason.sourceURL;
-        if (reason.line)
-          msg += ':' + reason.line;
-        if (reason.column)
-          msg += ':' + reason.column;
-        if (reason.stack)
-          msg += '\n' + reason.stack;
-      } else {
-        msg += 'No error object';
-      }
-      alert(msg);
-      return true;
-});
-var uaFull = navigator.userAgent;
-var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
-var isPS4 = match !== null;
-var fwVersion = isPS4 ? match[1] : "Unknown";
-var fwNum = parseFloat(fwVersion);
+(function () {
+  var visibleStatus = document.getElementById("status");
+  var statusText = document.getElementById("statusText");
+  var process = document.getElementById("process");
+  var internalProgress = document.getElementById("progress");
 
-function onScriptError() {
-    progress.innerHTML = "Konten tidak ditemukan. Hapus data browser lalu pasang ulang cache...";
-}
+  function setStatus(text, state) {
+    statusText.textContent = text;
+    visibleStatus.className = "status " + (state || "running");
+    process.className = "process" + (state === "success" ? " done" : state === "fail" ? " failed" : "");
+  }
 
-if (!isPS4) {
-    document.addEventListener("DOMContentLoaded", () => {
+  function classify(raw) {
+    var text = String(raw || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+    var lower = text.toLowerCase();
+    if (!text) return;
 
-    });
-} else {
-        if (fwNum == 5.05 || fwNum == 5.07) {
-            var script = document.createElement('script');
-            script.src = "exploit5.js";
-            script.onerror = onScriptError;
-            document.head.appendChild(script);
-        }
-        else if (fwNum >= 7.00 && fwNum <= 9.60) {
-            var script = document.createElement('script');
-            script.src = "exploit7_9.js";
-            script.onerror = onScriptError;
-            document.head.appendChild(script);
-             setTimeout(function() { window.log("Memulai proses jailbreak...");try {
-                 doJailBreak();
-                } catch (error) {
-                 window.log("Proses jailbreak gagal. Silakan restart PS4 dan coba lagi.", "red");
-                 }; }, 500);
-             
-        }
-        else if (fwNum >= 10.00 && fwNum <= 11.02) {
-            var script = document.createElement('script');script.src = "exploit10.js";script.onerror = onScriptError;
-            script.onload = function () {
-                setTimeout(function () {
-                    doJb();
-                }, 1000);
-            };
-            document.head.appendChild(script);
-        }
-        else if (fwNum >= 11.50 && fwNum <= 12.02) {
-           var script = document.createElement('script');
-           script.src = "1150_1202.js";
-           script.onerror = onScriptError;
-           document.head.appendChild(script);
-       }
-       else if (fwNum >= 12.50 && fwNum <= 13.00) {
-           var script = document.createElement('script');
-           script.src = "1250_13.js";
-           script.onerror = onScriptError;
-           document.head.appendChild(script);
-       }
-       else if (fwNum >= 13.02 && fwNum <= 13.52) {
-           var script = document.createElement('script');
-           script.src = "1302_1352.js";
-           script.onerror = onScriptError;
-           document.head.appendChild(script);
-       }
+    if (/goldhen.*loaded|goldhen.*already loaded|already jailbroken|kernel exploit succeeded|exploit succeeded/.test(lower)) {
+      setStatus("Jailbreak berhasil", "success");
+      return;
     }
+
+    if (/failed|error|unsupported|no offsets|not initialized|restart console|try again|worker onerror|timeout|mismatch|aborted|not supported|konten tidak ditemukan/.test(lower)) {
+      setStatus("Jailbreak gagal — silakan restart PS4 dan coba lagi.", "fail");
+      return;
+    }
+
+    setStatus("Sedang memproses...", "running");
+  }
+
+  if (internalProgress && window.MutationObserver) {
+    new MutationObserver(function () { classify(internalProgress.textContent || internalProgress.innerHTML); })
+      .observe(internalProgress, { childList:true, subtree:true, characterData:true });
+  }
+
+  window.__friendlyStatus = setStatus;
+  window.__debugLog = function (msg) { /* intentionally hidden */ };
+
+  window.log = function (msg) { classify(msg); };
+  window.logger = function (msg) { classify(msg); };
+
+  window.addEventListener("error", function () {
+    setStatus("Jailbreak gagal — silakan restart PS4 dan coba lagi.", "fail");
+  });
+
+  var uaFull = navigator.userAgent;
+  var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
+  var isPS4 = match !== null;
+  var fwVersion = isPS4 ? match[1] : "Unknown";
+  var fwNum = parseFloat(fwVersion);
+
+  function onScriptError() {
+    setStatus("Konten tidak ditemukan — silakan restart PS4 dan coba lagi.", "fail");
+  }
+
+  if (!isPS4) {
+    setStatus("Halaman ini hanya dapat dijalankan pada PS4.", "warn");
+  } else if (fwNum == 5.05 || fwNum == 5.07) {
+    var script = document.createElement("script");
+    script.src = "exploit5.js";
+    script.onerror = onScriptError;
+    document.head.appendChild(script);
+  } else if (fwNum >= 7.00 && fwNum <= 9.60) {
+    var script = document.createElement("script");
+    script.src = "exploit7_9.js";
+    script.onerror = onScriptError;
+    document.head.appendChild(script);
+    setTimeout(function () {
+      try { doJailBreak(); }
+      catch (error) { setStatus("Jailbreak gagal — silakan restart PS4 dan coba lagi.", "fail"); }
+    }, 500);
+  } else if (fwNum >= 10.00 && fwNum <= 11.02) {
+    var script = document.createElement("script");
+    script.src = "exploit10.js";
+    script.onerror = onScriptError;
+    script.onload = function () { setTimeout(function () { doJb(); }, 1000); };
+    document.head.appendChild(script);
+  } else if (fwNum >= 11.50 && fwNum <= 12.02) {
+    var script = document.createElement("script");
+    script.src = "1150_1202.js";
+    script.onerror = onScriptError;
+    document.head.appendChild(script);
+  } else if (fwNum >= 12.50 && fwNum <= 13.00) {
+    var script = document.createElement("script");
+    script.src = "1250_13.js";
+    script.onerror = onScriptError;
+    document.head.appendChild(script);
+  } else if (fwNum >= 13.02 && fwNum <= 13.52) {
+    var script = document.createElement("script");
+    script.src = "1302_1352.js";
+    script.onerror = onScriptError;
+    document.head.appendChild(script);
+  } else {
+    setStatus("Firmware tidak didukung oleh halaman ini.", "warn");
+  }
+})();
 </script>
+</body>
 </html>
