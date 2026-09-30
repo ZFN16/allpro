@@ -9,7 +9,7 @@
 html,body{margin:0;width:100%;height:100%;overflow:hidden}
 body{font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;background:radial-gradient(circle at 50% -20%,#1a2029 0,#0b0e13 38%,#07090c 72%);color:var(--text);display:flex;align-items:center;justify-content:center}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.025),transparent 30%,transparent 70%,rgba(255,255,255,.018))}
-.host{width:min(94vw,820px);padding:28px 22px 24px;text-align:center}
+.host{width:min(96vw,940px);padding:28px 18px 24px;text-align:center}
 .warning{position:relative;margin:0 auto 20px;max-width:760px;padding:22px 26px 21px;border:1px solid rgba(255,77,87,.42);border-radius:16px;background:linear-gradient(145deg,rgba(55,12,15,.96),rgba(25,9,11,.96));box-shadow:0 18px 55px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.035);overflow:hidden}
 .warning:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red);box-shadow:0 0 18px rgba(255,77,87,.45)}
 .warning strong{display:block;color:#ff7078;font-size:clamp(21px,3vw,28px);line-height:1.15;margin-bottom:9px;font-weight:800;letter-spacing:.1px}
@@ -19,23 +19,28 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background:lin
 .process-label{font-size:11px;text-transform:uppercase;letter-spacing:1.8px;color:#74808d;font-weight:800;margin-bottom:11px}
 .status{min-height:34px;display:flex;align-items:center;justify-content:center;gap:11px;color:#eef1f4;font-size:clamp(18px,2.7vw,23px);font-weight:700;line-height:1.3;transition:color .2s ease}
 .status .dot{width:9px;height:9px;border-radius:50%;background:#aab3bd;box-shadow:0 0 0 4px rgba(170,179,189,.08);flex:0 0 auto}
-.status.running .dot{background:#d8dde2;animation:pulse 1.15s ease-in-out infinite}
+.status.running .dot{background:#d8dde2}
 .status.success{color:#72e69d}.status.success .dot{background:var(--green);box-shadow:0 0 0 4px rgba(67,209,123,.1)}
 .status.fail{color:#ff737b}.status.fail .dot{background:var(--red);box-shadow:0 0 0 4px rgba(255,77,87,.1)}
 .status.warn{color:#ffd07a}.status.warn .dot{background:var(--amber);box-shadow:0 0 0 4px rgba(255,189,85,.1)}
 .process-line{height:2px;margin:15px auto 0;max-width:430px;background:#1f2630;border-radius:9px;overflow:hidden}
-.process-line span{display:block;width:28%;height:100%;background:linear-gradient(90deg,transparent,#c7cdd3,transparent);animation:scan 1.5s linear infinite}
+.process-line span{display:block;width:28%;height:100%;background:#c7cdd3}
 .process.done .process-line span{width:100%;animation:none;background:var(--green)}
 .process.failed .process-line span{width:100%;animation:none;background:var(--red)}
-.rules{margin:0 auto 16px;max-width:760px;padding:17px 22px;border:1px solid var(--line);background:rgba(15,19,24,.92);border-radius:15px;text-align:left;box-shadow:0 12px 32px rgba(0,0,0,.2)}
+.rules{margin:0 auto 16px;max-width:900px;padding:17px 22px;border:1px solid var(--line);background:rgba(15,19,24,.92);border-radius:15px;text-align:left;box-shadow:0 12px 32px rgba(0,0,0,.2)}
+.rules-grid{display:grid;grid-template-columns:55% 45%;gap:0;align-items:stretch}
+.rules-col{min-width:0;padding:2px 22px}
+.rules-col:first-child{padding-left:0}
+.rules-col:last-child{padding-right:0;border-left:1px solid var(--line)}
+.rules-col-title{text-align:center;color:#aab4c0;font-size:11px;text-transform:uppercase;letter-spacing:1.6px;font-weight:800;margin:0 0 11px}
+.rules-col:first-child .rules-col-title{color:#ff6971}
+
 .rules-title{text-align:center;color:#9da8b4;font-size:11px;text-transform:uppercase;letter-spacing:1.6px;font-weight:800;margin-bottom:10px}
-.rule{display:flex;gap:11px;align-items:flex-start;margin:8px 0;color:#d9dee4;font-size:clamp(13px,1.75vw,15px);line-height:1.42}
-.rule .dot{flex:0 0 auto;color:#ff6971;font-weight:900}.rule b{color:#ff6971}
+.rule{display:flex;gap:9px;align-items:flex-start;margin:8px 0;color:#f0f2f4;font-size:13.5px;line-height:1.3;white-space:nowrap}
+.rule .dot{flex:0 0 auto;color:#ff6971;font-weight:900}.rule b{color:var(--amber)}.rules-col:first-child .rule .dot{color:#ff6971}.rules-col:first-child .rule b{color:#f0f2f4}
 .hint{margin-top:6px;color:#91a6bd;font-size:13px;line-height:1.45}
 #progress{display:none!important;position:absolute!important;width:0!important;height:0!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
-@keyframes pulse{0%,100%{opacity:.45;transform:scale(.82)}50%{opacity:1;transform:scale(1)}}
-@keyframes scan{from{transform:translateX(-380%)}to{transform:translateX(500%)}}
-@media(max-width:600px){.host{padding:18px 13px}.warning{padding:19px 18px}.process{padding:18px 15px}.rules{padding:15px 16px}.rule{gap:8px}}
+@media(max-width:600px){.host{padding:18px 13px}.warning{padding:19px 18px}.process{padding:18px 15px}.rules{padding:15px 16px}.rules-grid{grid-template-columns:1fr}.rules-col{padding:2px 0 12px}.rules-col:last-child{padding:14px 0 0;border-left:0;border-top:1px solid var(--line)}.rule{gap:8px;white-space:normal}}
 </style>
 <script>
 if (window.applicationCache.status === 0) { window.location.replace("cache.html"); }
@@ -56,12 +61,26 @@ if (window.applicationCache.status === 0) { window.location.replace("cache.html"
     <div class="process-line"><span></span></div>
   </section>
 
-  <section class="rules" aria-label="Petunjuk penting">
+  <section class="rules" aria-label="Perhatian, price list, dan petunjuk penting">
     <div class="rules-title">Perhatian</div>
-    <div class="rule"><span class="dot">•</span><span><b>Jangan menyalakan Network PS4</b> selama proses berlangsung.</span></div>
-    <div class="rule"><span class="dot">•</span><span><b>Jangan melakukan Update Sistem PS4.</b></span></div>
-    <div class="rule"><span class="dot">•</span><span><b>Jangan matikan PS4</b> selama proses berlangsung.</span></div>
-    <div class="rule"><span class="dot">•</span><span><b>Jangan meninggalkan halaman ini</b> selama proses berlangsung.</span></div>
+    <div class="rules-grid">
+      <div class="rules-col">
+        <div class="rules-col-title">Hal yang tidak boleh dilakukan oleh penyewa</div>
+        <div class="rule"><span class="dot">•</span><span>Tidak boleh menyalakan Network PS4, Ingat denda Rp. 1,5jt</span></div>
+        <div class="rule"><span class="dot">•</span><span>Tidak boleh melakukan Update Sistem PS4, Ingat denda Rp. 1,5jt</span></div>
+        <div class="rule"><span class="dot">•</span><span>Jika terupdate sengaja ataupun tidak tetap tanggungjawab penyewa</span></div>
+        <div class="rule"><span class="dot">•</span><span>Tidak boleh mencabut kabel power saat PS sedang digunakan</span></div>
+		<div class="rule"><span class="dot">•</span><span>Jika terjadi masalah hubungi Whatsapp saya, Terimakasih</span></div>
+      </div>
+      <div class="rules-col">
+        <div class="rules-col-title">Harga rental harian playstation Zefen Store</div>
+        <div class="rule"><span class="dot">•</span><span>Sewa Harian Rental PS2 / 24 Jam &gt; <b>25k</b></span></div>
+        <div class="rule"><span class="dot">•</span><span>Sewa Harian Rental PS3 / 24 Jam &gt; <b>50k</b></span></div>
+        <div class="rule"><span class="dot">•</span><span>Sewa Harian Rental PS4 / 24 Jam &gt; <b>100k</b></span></div>
+        <div class="rule"><span class="dot">•</span><span>Whatsapp: <b>08887698833</b></span></div>
+        <div class="rule"><span class="dot">•</span><span>Syarat &gt; <b>KTP &amp; SNTK AKTIF</b></span></div>
+      </div>
+    </div>
   </section>
 
   <div class="hint">Jika proses gagal, restart PS4 lalu buka halaman ini kembali.</div>
@@ -77,33 +96,38 @@ if (window.applicationCache.status === 0) { window.location.replace("cache.html"
   var process = document.getElementById("process");
   var internalProgress = document.getElementById("progress");
 
+  var terminalState = false;
+
   function setStatus(text, state) {
+    if (terminalState) return;
     statusText.textContent = text;
     visibleStatus.className = "status " + (state || "running");
     process.className = "process" + (state === "success" ? " done" : state === "fail" ? " failed" : "");
+    if (state === "success" || state === "fail") terminalState = true;
   }
 
   function classify(raw) {
+    if (terminalState) return;
     var text = String(raw || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
     var lower = text.toLowerCase();
     if (!text) return;
 
-    if (/goldhen.*loaded|goldhen.*already loaded|already jailbroken|kernel exploit succeeded|exploit succeeded/.test(lower)) {
+    // Only accept explicit user-facing result messages. Internal exploit/debug
+    // events are deliberately ignored so a recoverable internal retry cannot
+    // make the UI report a false failure.
+    if (/goldhen.*loaded|goldhen.*already loaded|goldhen loaded|jailbreak berhasil|exploit succeeded/.test(lower)) {
       setStatus("Jailbreak berhasil", "success");
       return;
     }
 
-    if (/failed|error|unsupported|no offsets|not initialized|restart console|try again|worker onerror|timeout|mismatch|aborted|not supported|konten tidak ditemukan/.test(lower)) {
+    if (/failed to load goldhen|failed:|jailbreak gagal|silakan restart console|restart console|please restart console|konten tidak ditemukan|unsupported browser/.test(lower)) {
       setStatus("Jailbreak gagal — silakan restart PS4 dan coba lagi.", "fail");
       return;
     }
 
-    setStatus("Sedang memproses...", "running");
-  }
-
-  if (internalProgress && window.MutationObserver) {
-    new MutationObserver(function () { classify(internalProgress.textContent || internalProgress.innerHTML); })
-      .observe(internalProgress, { childList:true, subtree:true, characterData:true });
+    if (/memulai proses jailbreak|starting exploit|jailbreaking|sedang memproses|mempersiapkan/.test(lower)) {
+      setStatus("Sedang memproses...", "running");
+    }
   }
 
   window.__friendlyStatus = setStatus;
@@ -113,6 +137,10 @@ if (window.applicationCache.status === 0) { window.location.replace("cache.html"
   window.logger = function (msg) { classify(msg); };
 
   window.addEventListener("error", function () {
+    setStatus("Jailbreak gagal — silakan restart PS4 dan coba lagi.", "fail");
+  });
+
+  window.addEventListener("unhandledrejection", function () {
     setStatus("Jailbreak gagal — silakan restart PS4 dan coba lagi.", "fail");
   });
 
