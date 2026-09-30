@@ -136,14 +136,6 @@ if (window.applicationCache.status === 0) { window.location.replace("cache.html"
   window.log = function (msg) { classify(msg); };
   window.logger = function (msg) { classify(msg); };
 
-  window.addEventListener("error", function () {
-    setStatus("Jailbreak gagal — silakan restart PS4 dan coba lagi.", "fail");
-  });
-
-  window.addEventListener("unhandledrejection", function () {
-    setStatus("Jailbreak gagal — silakan restart PS4 dan coba lagi.", "fail");
-  });
-
   var uaFull = navigator.userAgent;
   var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
   var isPS4 = match !== null;
@@ -157,11 +149,13 @@ if (window.applicationCache.status === 0) { window.location.replace("cache.html"
   if (!isPS4) {
     setStatus("Halaman ini hanya dapat dijalankan pada PS4.", "warn");
   } else if (fwNum == 5.05 || fwNum == 5.07) {
+    setStatus("Sedang memproses...", "running");
     var script = document.createElement("script");
     script.src = "exploit5.js";
     script.onerror = onScriptError;
     document.head.appendChild(script);
   } else if (fwNum >= 7.00 && fwNum <= 9.60) {
+    setStatus("Sedang memproses...", "running");
     var script = document.createElement("script");
     script.src = "exploit7_9.js";
     script.onerror = onScriptError;
@@ -171,22 +165,26 @@ if (window.applicationCache.status === 0) { window.location.replace("cache.html"
       catch (error) { setStatus("Jailbreak gagal — silakan restart PS4 dan coba lagi.", "fail"); }
     }, 500);
   } else if (fwNum >= 10.00 && fwNum <= 11.02) {
+    setStatus("Sedang memproses...", "running");
     var script = document.createElement("script");
     script.src = "exploit10.js";
     script.onerror = onScriptError;
     script.onload = function () { setTimeout(function () { doJb(); }, 1000); };
     document.head.appendChild(script);
   } else if (fwNum >= 11.50 && fwNum <= 12.02) {
+    setStatus("Sedang memproses...", "running");
     var script = document.createElement("script");
     script.src = "1150_1202.js";
     script.onerror = onScriptError;
     document.head.appendChild(script);
   } else if (fwNum >= 12.50 && fwNum <= 13.00) {
+    setStatus("Sedang memproses...", "running");
     var script = document.createElement("script");
     script.src = "1250_13.js";
     script.onerror = onScriptError;
     document.head.appendChild(script);
   } else if (fwNum >= 13.02 && fwNum <= 13.52) {
+    setStatus("Sedang memproses...", "running");
     var script = document.createElement("script");
     script.src = "1302_1352.js";
     script.onerror = onScriptError;
